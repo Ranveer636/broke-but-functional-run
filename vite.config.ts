@@ -1,6 +1,6 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
-import react from '@vitejs/plugin-react';
-import path from 'path';
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig({
   plugins: [
@@ -14,35 +14,24 @@ export default defineConfig({
   },
   build: {
     target: 'es2015',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    },
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
-            return 'react-core';
+            return 'react-core'
           }
-          if (
-            id.includes('node_modules/recharts') ||
-            id.includes('node_modules/chart.js') ||
-            id.includes('node_modules/d3') ||
-            id.includes('node_modules/victory')
-          ) {
-            return 'charts-vendor';
+          if (id.includes('node_modules/recharts')) {
+            return 'charts-vendor'
           }
-          if (id.includes('node_modules/@radix-ui')) {
-            return 'radix-vendor';
+          if (id.includes('node_modules/@radix-ui') || id.includes('node_modules/radix-ui')) {
+            return 'radix-vendor'
           }
           if (id.includes('node_modules/zustand')) {
-            return 'state-vendor';
+            return 'state-vendor'
           }
           if (id.includes('node_modules/')) {
-            return 'vendor';
+            return 'vendor'
           }
         },
         chunkFileNames: 'assets/[name]-[hash].js',
@@ -55,6 +44,6 @@ export default defineConfig({
     cssCodeSplit: true,
   },
   optimizeDeps: {
-    include: ['react', 'react-dom', 'zustand'],
+    include: ['react', 'react-dom'],
   },
-});
+})

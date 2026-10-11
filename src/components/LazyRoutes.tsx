@@ -1,14 +1,12 @@
 import { lazy, Suspense, ReactNode } from 'react';
 
-export const LazyDashboard = lazy(() =>
-  import('./Dashboard').then((m) => ({ default: m.Dashboard }))
-);
-export const LazySimulationEngine = lazy(() =>
-  import('./SimulationEngine').then((m) => ({ default: m.SimulationEngine }))
-);
-export const LazyCharts = lazy(() =>
-  import('./Charts').then((m) => ({ default: m.Charts }))
-);
+export const LazyDashboard = lazy(() => import('./dashboard'));
+
+export const LazySimulationEngine = lazy(() => import('./simulation-engine'));
+
+export const LazyGoalsView = lazy(() => import('./goals-view'));
+
+export const LazyExpenseForm = lazy(() => import('./expense-form'));
 
 function LoadingSkeleton() {
   return (

@@ -1,14 +1,17 @@
-import { StrictMode } from "react"
-import { createRoot } from "react-dom/client"
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App'
+import { ErrorBoundary } from './components/ErrorBoundary'
+import './index.css'
 
-import "./index.css"
-import App from "./App.tsx"
-import { ThemeProvider } from "@/components/theme-provider.tsx"
-
-createRoot(document.getElementById("root")!).render(
-  <StrictMode>
-    <ThemeProvider>
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+  <React.StrictMode>
+    <ErrorBoundary
+      onError={(error, info) => {
+        console.error('[App Crash]', error, info)
+      }}
+    >
       <App />
-    </ThemeProvider>
-  </StrictMode>
+    </ErrorBoundary>
+  </React.StrictMode>
 )
